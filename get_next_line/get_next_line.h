@@ -6,7 +6,7 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 15:33:08 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/08/25 15:34:36 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:07:41 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+char	*get_next_line(int fd);
 
 #endif
