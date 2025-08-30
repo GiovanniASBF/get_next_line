@@ -6,7 +6,7 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 15:36:15 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/08/30 13:15:24 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/08/30 14:17:45 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,28 @@ char	*add_content(int fd, char **buf)
 		free(buf);
 		return (NULL);
 	}
-	//line = get_line()
+	line = get_line(&buf);
 }
 
 char	*get_line(char **buf)
 {
-	
+	size_t	counter;
+	char	*len;
+	char	*line;
+
+	counter = 1;
+	len = buf;
+	while (*len != '\n')
+	{
+		counter++;
+		len++;
+	}
+	line = malloc(sizeof(char) * (counter));
+	line = ft_strlcpy(line, buf, counter);
+	return (line);
+	//*buf = update_buf();
 }
+
 /*
 size_t get_line_size();
 	char	*buffer_support;
