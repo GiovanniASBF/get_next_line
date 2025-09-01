@@ -6,50 +6,56 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 15:36:15 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/08/30 14:17:45 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:57:47 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*add_content(int fd, char **buf);
+int		add_content(int fd, char **buf);
+char	*get_line(char **buf);
+void	update_buf(char **buf);
 
 char	*get_next_line(int fd)
 {
 	static char	*buf_content;
 	int			content_read;
+	char		*line;
 
 	if (!fd)
 		return (NULL);
 	if (!buf_content)
 		buf_content = malloc(sizeof(char) * 1);
 	content_read = add_content(fd, &buf_content);
+	if (!content_read)
+	{
+		/* code */
+	}
+	line = get_line(&buf_content);
+	update_buf(&buf_content);
 }
 
-char	*add_content(int fd, char **buf)
+int	add_content(int fd, char **buf)
 {
 	char	*buf_temp;
 	int		content_read;
-	char	*line;
+	char	*read_buffer;
 
-	buf_temp = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buf_temp)
+	read_buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!read_buffer)
 		return (NULL);
 	content_read = 1;
 	while (content_read > 0 && !ft_strchr(*buf, '\n'))
 	{
-		content_read = read(fd, buf_temp, BUFFER_SIZE);
+		content_read = read(fd, read_buffer, BUFFER_SIZE);
 		if (content_read <= 0)
 			break ;
-		buf_temp[content_read] = '\0';
-		buf = ft_strjoin(*buf, *buf_temp);
+		read_buffer[content_read] = '\0';
+		buf_temp = ft_strjoin(*buf, buf_temp);
+		free(*buf);
+		*buf = buf_temp;
 	}
-	if (content_read < 0)
-	{
-		free(buf);
-		return (NULL);
-	}
-	line = get_line(&buf);
+	return (content_read);
 }
 
 char	*get_line(char **buf)
@@ -59,7 +65,7 @@ char	*get_line(char **buf)
 	char	*line;
 
 	counter = 1;
-	len = buf;
+	len = *buf;
 	while (*len != '\n')
 	{
 		counter++;
@@ -68,7 +74,21 @@ char	*get_line(char **buf)
 	line = malloc(sizeof(char) * (counter));
 	line = ft_strlcpy(line, buf, counter);
 	return (line);
-	//*buf = update_buf();
+}
+
+void	update_buf(char **buf)
+{
+	size_t	len;
+	char	*sup_buf;
+	char	*updated_buf;
+
+	sup_buf = ft_strchr(*buf, '\n');
+	len = ft_strlen(sup_buf);
+	updated_buf = malloc(sizeof(char) * len);
+	updated_buf = *(sup_buf + 1);
+	updated_buf[len] = '\0';
+	free(*buf);
+	*buf = update_buf;
 }
 
 /*
