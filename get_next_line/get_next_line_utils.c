@@ -6,7 +6,7 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 12:36:45 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/08/30 14:02:37 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:22:44 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,26 @@ size_t	ft_strlen(const char *s)
 		s++;
 	}
 	return (i);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*aux;
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s);
+	aux = (char *)malloc((len + 1) * sizeof(char));
+	if (!aux)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		aux[i] = s[i];
+		i++;
+	}
+	aux[i] = '\0';
+	return (aux);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -72,24 +92,24 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-        char    *aux;
-        size_t  i;
+	char	*aux;
+	size_t	i;
 
-        i = 0;
-        if (ft_strlen(s) <= start)
-                return (ft_strdup(""));
-        if (ft_strlen(s) - start < len)
-                len = ft_strlen(s) - start;
-        aux = (char *)malloc((len + 1) * sizeof(char));
-        if (aux == NULL)
-                return (NULL);
-        while (i < len && s[start + i])
-        {
-                aux[i] = s[start + i];
-                i++;
-        }
-        aux[i] = '\0';
-        return (aux);
+	i = 0;
+	if (ft_strlen(s) <= start)
+		return (ft_strdup(""));
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	aux = (char *)malloc((len + 1) * sizeof(char));
+	if (aux == NULL)
+		return (NULL);
+	while (i < len && s[start + i])
+	{
+			aux[i] = s[start + i];
+			i++;
+	}
+	aux[i] = '\0';
+	return (aux);
 }
