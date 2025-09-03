@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int		add_content(int fd, char **buf);
+static char	*add_content(int fd, char **buf);
 char	*get_line(char **buf);
 void	update_buf(char **buf);
 
@@ -22,24 +22,23 @@ char	*get_next_line(int fd)
 	int			content_read;
 	char		*line;
 
-	if (!fd)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buf_content)
 		buf_content = malloc(sizeof(char) * 1);
-	content_read = add_content(fd, &buf_content);
-	if (!content_read)
-	{
-		/* code */
-	}
+	*buf_content = add_content(fd, &buf_content);
+	if (!buf_content)
+		return (NULL);
 	line = get_line(&buf_content);
 	update_buf(&buf_content);
+	return (line);
 }
 
-int	add_content(int fd, char **buf)
+static char	*add_content(int fd, char **buf)
 {
-	char	*buf_temp;
-	int		content_read;
-	char	*read_buffer;
+	char		*buf_temp;
+	ssize_t		content_read;
+	char		*read_buffer;
 
 	read_buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!read_buffer)
@@ -48,14 +47,18 @@ int	add_content(int fd, char **buf)
 	while (content_read > 0 && !ft_strchr(*buf, '\n'))
 	{
 		content_read = read(fd, read_buffer, BUFFER_SIZE);
-		if (content_read <= 0)
-			break ;
 		read_buffer[content_read] = '\0';
 		buf_temp = ft_strjoin(*buf, buf_temp);
 		free(*buf);
 		*buf = buf_temp;
+		free(buf_temp);
 	}
-	return (content_read);
+	if (content_read < 0)
+	{
+		free(*buf);
+		return (NULL);
+	}
+	return (*buf);
 }
 
 char	*get_line(char **buf)
