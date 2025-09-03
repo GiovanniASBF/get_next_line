@@ -58,25 +58,22 @@ static char	*add_content(int fd, char **buf)
 		free(*buf);
 		return (NULL);
 	}
+	free(read_buffer);
 	return (*buf);
 }
 
 char	*get_line(char **buf)
 {
-	size_t	counter;
-	char	*len;
-	char	*line;
+	size_t	len;
 
-	counter = 1;
-	len = *buf;
-	while (*len != '\n')
-	{
-		counter++;
+	if (!(*buf))
+		return (NULL);
+	len = 0;
+	while (*buf[len] && *buf[len] != '\n')
 		len++;
-	}
-	line = malloc(sizeof(char) * (counter));
-	line = ft_strlcpy(line, buf, counter);
-	return (line);
+	if (*buf[len] == '\n')
+		len++;
+	return (ft_substr(*buf, 0, len));
 }
 
 void	update_buf(char **buf)
@@ -89,9 +86,8 @@ void	update_buf(char **buf)
 	len = ft_strlen(sup_buf);
 	updated_buf = malloc(sizeof(char) * len);
 	updated_buf = *(sup_buf + 1);
-	updated_buf[len] = '\0';
 	free(*buf);
-	*buf = update_buf;
+	*buf = updated_buf;
 }
 
 /*

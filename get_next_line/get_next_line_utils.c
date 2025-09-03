@@ -12,23 +12,6 @@
 
 #include "get_next_line.h"
 
-int	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (size > 0)
-	{
-		while (i < size - 1 && src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (ft_strlen(src));
-}
-
 size_t	ft_strlen(const char *s)
 {
 	int	i;
@@ -87,4 +70,26 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	}
 	return (NULL);
+}
+
+char    *ft_substr(char const *s, unsigned int start, size_t len)
+{
+        char    *aux;
+        size_t  i;
+
+        i = 0;
+        if (ft_strlen(s) <= start)
+                return (ft_strdup(""));
+        if (ft_strlen(s) - start < len)
+                len = ft_strlen(s) - start;
+        aux = (char *)malloc((len + 1) * sizeof(char));
+        if (aux == NULL)
+                return (NULL);
+        while (i < len && s[start + i])
+        {
+                aux[i] = s[start + i];
+                i++;
+        }
+        aux[i] = '\0';
+        return (aux);
 }
