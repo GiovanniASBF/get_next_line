@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/25 15:36:15 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/04 16:26:19 by gaguiar-         ###   ########.fr       */
+/*   Created: 2025/09/04 16:50:41 by gaguiar-          #+#    #+#             */
+/*   Updated: 2025/09/04 16:50:56 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,32 +90,3 @@ static char	*update_buf(char *buf)
 	free(buf);
 	return (updated_buf);
 }
-
-/*
-#include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	int	fd = open(0, O_RDONLY);
-	char *line;
-
-	while ((line = get_next_line(fd)))
-	{
-    	printf("%s", line);
-    	free(line);
-	}
-	close (fd);
-	return (0);
-}
-
-The comma operator ( , ) evaluates its first operand, 
-discards the result, and then evaluates the second operand, 
-returning its value.
-
-free(static_buf) is executed first. 
-Since free has a void return type, there's no result to consider.
-NULL is then evaluated, 
-and its value becomes the result of the entire expression.
-The return statement then returns that NULL value.
-*/
