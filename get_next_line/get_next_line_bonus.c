@@ -6,7 +6,7 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:50:41 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/05 11:26:51 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:38:16 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,8 @@ char	*get_next_line(int fd)
 	buf_content[fd] = update_buf(buf_content[fd]);
 	return (line);
 }
+
+/*
+The command ulimit -n 
+shows the maximum number of file descriptors a single process can have open
+*/

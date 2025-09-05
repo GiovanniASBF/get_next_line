@@ -6,7 +6,7 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 15:36:15 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/05 11:27:24 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:39:57 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,27 +87,10 @@ char	*get_next_line(int fd)
 	return (line);
 }
 /*
-#include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	int	fd = open(0, O_RDONLY);
-	char *line;
-
-	while ((line = get_next_line(fd)))
-	{
-    	printf("%s", line);
-    	free(line);
-	}
-	close (fd);
-	return (0);
-}
-
+At line 29
 The comma operator ( , ) evaluates its first operand, 
 discards the result, and then evaluates the second operand, 
 returning its value.
-
 free(static_buf) is executed first. 
 Since free has a void return type, there's no result to consider.
 NULL is then evaluated, 
