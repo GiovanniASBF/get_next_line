@@ -6,17 +6,18 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:54:40 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/04 16:56:06 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:49:56 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
 # endif
-
+# ifndef FD_MAX
+#  define FD_MAX 1024
+# endif
 # include <stdlib.h>
 # include <unistd.h>
 

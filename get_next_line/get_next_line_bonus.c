@@ -6,11 +6,11 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:50:41 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/04 16:50:56 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:30:54 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*add_content(int fd, char *buf);
 char		*get_one_line(char *buf);
@@ -18,21 +18,21 @@ static char	*update_buf(char *buf);
 
 char	*get_next_line(int fd)
 {
-	static char	*buf_content;
+	static char	*buf_content[FD_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buf_content)
+	if (!buf_content[fd])
 	{
-		buf_content = malloc(sizeof(char) * 1);
-		buf_content[0] = '\0';
+		buf_content[fd] = malloc(sizeof(char) * 1);
+		buf_content[fd][0] = '\0';
 	}
-	buf_content = add_content(fd, buf_content);
-	if (!buf_content)
+	buf_content[fd] = add_content(fd, buf_content[fd]);
+	if (!buf_content[fd])
 		return (NULL);
-	line = get_one_line(buf_content);
-	buf_content = update_buf(buf_content);
+	line = get_one_line(buf_content[fd]);
+	buf_content[fd] = update_buf(buf_content[fd]);
 	return (line);
 }
 
