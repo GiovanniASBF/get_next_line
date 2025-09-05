@@ -6,35 +6,11 @@
 /*   By: gaguiar- <gaguiar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 15:36:15 by gaguiar-          #+#    #+#             */
-/*   Updated: 2025/09/04 16:26:19 by gaguiar-         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:27:24 by gaguiar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static char	*add_content(int fd, char *buf);
-char		*get_one_line(char *buf);
-static char	*update_buf(char *buf);
-
-char	*get_next_line(int fd)
-{
-	static char	*buf_content;
-	char		*line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (!buf_content)
-	{
-		buf_content = malloc(sizeof(char) * 1);
-		buf_content[0] = '\0';
-	}
-	buf_content = add_content(fd, buf_content);
-	if (!buf_content)
-		return (NULL);
-	line = get_one_line(buf_content);
-	buf_content = update_buf(buf_content);
-	return (line);
-}
 
 static char	*add_content(int fd, char *buf)
 {
@@ -91,6 +67,25 @@ static char	*update_buf(char *buf)
 	return (updated_buf);
 }
 
+char	*get_next_line(int fd)
+{
+	static char	*buf_content;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (!buf_content)
+	{
+		buf_content = malloc(sizeof(char) * 1);
+		buf_content[0] = '\0';
+	}
+	buf_content = add_content(fd, buf_content);
+	if (!buf_content)
+		return (NULL);
+	line = get_one_line(buf_content);
+	buf_content = update_buf(buf_content);
+	return (line);
+}
 /*
 #include <fcntl.h>
 #include <stdio.h>
